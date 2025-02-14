@@ -39,7 +39,7 @@ class Tracking extends Controller
                 $rootUrl = $click->linkHistory->original_url;
                 $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
                 $clickCode = $click->code;
-                $url = $rootUrl.$sep."Allianceid=5599343&SID=129282959&trip_sub1=".$clickCode."&trip_sub3=D735485";
+                $url = $rootUrl.$sep."Allianceid=5997657&SID=168084274&trip_sub1=".$clickCode."&trip_sub3=D1438110";
                 break;
             
             default:
