@@ -41,6 +41,14 @@ class Tracking extends Controller
                 $clickCode = $click->code;
                 $url = $rootUrl.$sep."Allianceid=5997657&SID=168084274&trip_sub1=".$clickCode."&trip_sub3=D1438110";
                 break;
+
+            case '661d8178a32585301900931955599b9de5fa0e4d':
+                // Trip.com - CPS
+                $rootUrl = $click->linkHistory->original_url;
+                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                $clickCode = $click->code;
+                $url = "https://invl.me/clmli4x?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+                break;
             
             default:
                 # code...
