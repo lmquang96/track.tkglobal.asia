@@ -55,6 +55,14 @@ class Tracking extends Controller
                 $rootUrl = $click->linkHistory->original_url;
                 $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
                 $clickCode = $click->code;
+                $url = "https://invl.me/clmlj55?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+                break;
+
+            case '2a9301c50281b98262a381ee31e8f4ec7b436c35':
+                // Trip.com - CPS
+                $rootUrl = $click->linkHistory->original_url;
+                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                $clickCode = $click->code;
                 $url = "https://invl.me/clmlj38?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
                 break;
             
