@@ -61,6 +61,16 @@ class Tracking extends Controller
                 // TikTok Shop VN - CPS
                 $url = self::involveTracking($click, 'clmll6k');
                 break;
+
+            case 'c84e892b5c53ed3b30fe62577da9dfd32a026a05':
+                // Taobao (Non-deeplinkable) - CPS
+                $url = self::involveTracking($click, 'clmll8o');
+                break;
+
+            case 'd469b2c828005b1f624aa9ffa3e8ca58b3481716':
+                // Taobao (Deeplinkable) - CPS
+                $url = self::involveTracking($click, 'clmll9c');
+                break;
             
             default:
                 # code...
