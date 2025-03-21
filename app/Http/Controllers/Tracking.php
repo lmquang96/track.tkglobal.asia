@@ -43,27 +43,23 @@ class Tracking extends Controller
                 break;
 
             case '661d8178a32585301900931955599b9de5fa0e4d':
-                // Banggood (Global)	
-                $rootUrl = $click->linkHistory->original_url;
-                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
-                $clickCode = $click->code;
-                $url = "https://invl.me/clmli4x?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+                // Banggood (Global)
+                $url = self::involveTracking($click, 'clmli4x');
                 break;
 
             case '64a0100d4e79553872503e04c2ff52d364b0e7eb':
-                // Alibaba Ready To Ship - CPS	
-                $rootUrl = $click->linkHistory->original_url;
-                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
-                $clickCode = $click->code;
-                $url = "https://invl.me/clmlj55?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+                // Alibaba Ready To Ship - CPS
+                $url = self::involveTracking($click, 'clmlj55');
                 break;
 
             case '2a9301c50281b98262a381ee31e8f4ec7b436c35':
-                // Alibaba CPS	
-                $rootUrl = $click->linkHistory->original_url;
-                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
-                $clickCode = $click->code;
-                $url = "https://invl.me/clmlj38?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+                // Alibaba CPS
+                $url = self::involveTracking($click, 'clmlj38');
+                break;
+
+            case 'ec8cab9e144db62ac3f9a8da4c972686ffd71da8':
+                // TikTok Shop VN - CPS
+                $url = self::involveTracking($click, 'clmll6k');
                 break;
             
             default:
@@ -72,5 +68,12 @@ class Tracking extends Controller
         }
 
         return redirect()->to($url)->send();
+    }
+
+    public function involveTracking($click, $id) {
+        $rootUrl = $click->linkHistory->original_url;
+        $clickCode = $click->code;
+        $url = "https://invl.me/$id?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+        return $url;
     }
 }
