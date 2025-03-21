@@ -71,6 +71,16 @@ class Tracking extends Controller
                 // Taobao (Deeplinkable) - CPS
                 $url = self::involveTracking($click, 'clmll9c');
                 break;
+
+            case '8b0977cd08956f11ac9a4e0492d905416dbea119':
+                // AliExpress (Global) - CPS
+                $url = self::involveTracking($click, 'clmllcl');
+                break;
+
+            case '5dd2f46fde33382a520f2851da6224c913e6e50c':
+                // Shopee VN - CPS
+                $url = self::involveTracking($click, 'clmlldh');
+                break;
             
             default:
                 # code...
