@@ -81,6 +81,21 @@ class Tracking extends Controller
                 // Shopee VN - CPS
                 $url = self::involveTracking($click, 'clmlldh');
                 break;
+
+            case '503e71247eab6772e7d9f231df2685c06e78e11f':
+                // Klook Travel Private - CPS
+                $url = self::involveTracking($click, 'clmllnr');
+                break;
+
+            case 'b85c4ff0747a42cf042fed36ddd3ff528e39002f':
+                // Traveloka VN - CPS
+                $url = self::involveTracking($click, 'clmllo4');
+                break;
+
+            case '182d84841b6fb917175f8c63a6a7b6ed61e6e2ed':
+                // KKday Global - CPS
+                $url = self::involveTracking($click, 'clmllpn');
+                break;
             
             default:
                 # code...
