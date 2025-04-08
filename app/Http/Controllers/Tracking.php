@@ -96,6 +96,11 @@ class Tracking extends Controller
                 // KKday Global - CPS
                 $url = self::involveTracking($click, 'clmllpn');
                 break;
+
+            case '29ca27939fe3ede82de5c4e6777d5976e9bb2c04':
+                // Trip.com Network - CPS
+                $url = self::involveTracking($click, 'clmmyg5');
+                break;
             
             default:
                 # code...
