@@ -101,6 +101,11 @@ class Tracking extends Controller
                 // Trip.com Network - CPS
                 $url = self::involveTracking($click, 'clmmyg5');
                 break;
+
+            case '450829e35b03db8f1413a8ef60cc94a0d43dc1a8':
+                // Udemy APAC - CPS
+                $url = self::involveTracking($click, 'clmpvs6');
+                break;
             
             default:
                 # code...
