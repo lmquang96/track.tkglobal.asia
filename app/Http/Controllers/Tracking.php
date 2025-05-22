@@ -93,7 +93,7 @@ class Tracking extends Controller
                 break;
 
             case '182d84841b6fb917175f8c63a6a7b6ed61e6e2ed':
-                // KKday Global - CPS
+                // KKday Global Network - CPS
                 $url = self::involveTracking($click, 'clmllpn');
                 break;
 
@@ -105,6 +105,14 @@ class Tracking extends Controller
             case '450829e35b03db8f1413a8ef60cc94a0d43dc1a8':
                 // Udemy APAC - CPS
                 $url = self::involveTracking($click, 'clmpvs6');
+                break;
+
+            case '8beb356031b37381d91200607e9f4b0af00fca6e':
+                // KKday Global - CPS
+                $rootUrl = $click->linkHistory->original_url;
+                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                $clickCode = $click->code;
+                $url = $rootUrl.$sep."cid=21967&ud1=".$clickCode;
                 break;
             
             default:
