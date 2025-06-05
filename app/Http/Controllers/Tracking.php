@@ -136,7 +136,7 @@ class Tracking extends Controller
         return $url;
     }
 
-    public function goodaffTracking($click, $id) {
+    public static function goodaffTracking($click, $id) {
         $clickCode = $click->code;
         $url = "https://affilink.eu/$id/ni80lej1id?s1=$clickCode";
         return $url;
