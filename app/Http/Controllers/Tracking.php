@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Click;
 use App\Models\LinkHistory;
+use Illuminate\Support\Facades\Log;
 
 class Tracking extends Controller
 {
@@ -15,8 +16,8 @@ class Tracking extends Controller
         }
         $newClick = new Click();
         $newClick->code = sha1(time());
-        $newClick->agent = \Request::userAgent();
-        $newClick->ip = \Request::ip();
+        $newClick->agent = Request::userAgent();
+        $newClick->ip = Request::ip();
         $newClick->link_history_id = $linkHistory->id;
 
         try {
@@ -24,7 +25,7 @@ class Tracking extends Controller
 
             self::redirectTracking($newClick);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
+            Log::error($e->getMessage());
 
             return response()->json(['status' => '500', 'error', $e->getMessage()], 200, []);
         }
@@ -114,6 +115,11 @@ class Tracking extends Controller
                 $clickCode = $click->code;
                 $url = $rootUrl.$sep."cid=21967&ud1=".$clickCode;
                 break;
+
+            case '908ed702367d6f0e5b38b46c4f8dfdd1ad8f8af8':
+                // Aoao - VN
+                $url = self::goodaffTracking($click, 'aoao.vn');
+                break;
             
             default:
                 # code...
@@ -127,6 +133,12 @@ class Tracking extends Controller
         $rootUrl = $click->linkHistory->original_url;
         $clickCode = $click->code;
         $url = "https://invl.me/$id?aff_sub=".$clickCode."&url=".urlencode($rootUrl);
+        return $url;
+    }
+
+    public function goodaffTracking($click, $id) {
+        $clickCode = $click->code;
+        $url = "https://affilink.eu/$id/ni80lej1id?s1=$clickCode";
         return $url;
     }
 }
