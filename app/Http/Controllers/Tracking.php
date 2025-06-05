@@ -16,8 +16,8 @@ class Tracking extends Controller
         }
         $newClick = new Click();
         $newClick->code = sha1(time());
-        $newClick->agent = Request::userAgent();
-        $newClick->ip = Request::ip();
+        $newClick->agent = \Request::userAgent();
+        $newClick->ip = \Request::ip();
         $newClick->link_history_id = $linkHistory->id;
 
         try {
@@ -136,7 +136,7 @@ class Tracking extends Controller
         return $url;
     }
 
-    public static function goodaffTracking($click, $id) {
+    public function goodaffTracking($click, $id) {
         $clickCode = $click->code;
         $url = "https://affilink.eu/$id/ni80lej1id?s1=$clickCode";
         return $url;
