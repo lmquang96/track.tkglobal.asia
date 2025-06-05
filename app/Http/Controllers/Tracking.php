@@ -120,6 +120,16 @@ class Tracking extends Controller
                 // Aoao - VN
                 $url = self::goodaffTracking($click, 'aoao.vn');
                 break;
+
+            case 'bafa48e876fc7d738aaef945ec56c6ab3887b179':
+                // Cayvang - VN
+                $url = self::goodaffTracking($click, 'cayvang.vn');
+                break;
+
+            case '7d7cb179ab6630911ca4c9be95e8adb6e8a65869':
+                // Credify - VN
+                $url = self::goodaffTracking($click, 'credify.vn');
+                break;
             
             default:
                 # code...
