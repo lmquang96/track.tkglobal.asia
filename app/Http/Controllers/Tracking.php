@@ -130,6 +130,61 @@ class Tracking extends Controller
                 // Credify - VN
                 $url = self::goodaffTracking($click, 'credify.vn');
                 break;
+
+            case '8d3401f8325fcae7fc0d9bc005baf50ea0828b72':
+                // Creditera - VN | android
+                $url = self::goodaffTracking($click, 'creditera.app.vn');
+                break;
+
+            case '7b51648e4ab6cbae929a0d6ec8c7b10ed9e2c2ae':
+                // Creditera - VN | ios
+                $url = self::goodaffTracking($click, 'creditera.ios.vn');
+                break;
+
+            case 'cda1b0391b7fa8edc24be38aaf9429109fcaac76':
+                // Credy - VN
+                $url = self::goodaffTracking($click, 'credy.vn');
+                break;
+
+            case 'd2085bd9e7917fc856f6ea7d36b3f3a67bb8d483':
+                // Crezu - VN
+                $url = self::goodaffTracking($click, 'crezu.vn');
+                break;
+
+            case '9bc97825c84ad5ded93c247a3a2e6a8b34f3991e':
+                // Mazilla - VN
+                $url = self::goodaffTracking($click, 'mazilla.vn');
+                break;
+
+            case 'e93f7b109216603d005694173b1c52d6bb2d8171':
+                // Moneycat - VN
+                $url = self::goodaffTracking($click, 'moneycat.vn');
+                break;
+
+            case '4bbd20b417cee33d161bdba682079472baa1fcd4':
+                // Moneyveo - VN
+                $url = self::goodaffTracking($click, 'moneyveo.vn');
+                break;
+
+            case '7a271ca9199eeb6d54b0f4626102ecf65d7300df':
+                // Soscredit - VN
+                $url = self::goodaffTracking($click, 'soscredit.vn');
+                break;
+
+            case '6d291605e66d482d79b712895c8ba2807d190224':
+                // Tieno - VN
+                $url = self::goodaffTracking($click, 'tieno.vn');
+                break;
+
+            case 'f3afc15d782c93646f5afbe96b35733032c9cd31':
+                // Vayvnd - VN
+                $url = self::goodaffTracking($click, 'vayvnd.vn');
+                break;
+
+            case 'f52784e8af9eb23e2ca08ba9d1e8568fbd81fb95':
+                // Zaimoo - VN
+                $url = self::goodaffTracking($click, 'zaimoo.vn');
+                break;
             
             default:
                 # code...
