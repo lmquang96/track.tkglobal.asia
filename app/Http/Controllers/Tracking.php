@@ -43,6 +43,14 @@ class Tracking extends Controller
                 $url = $rootUrl.$sep."Allianceid=5997657&SID=168084274&trip_sub1=".$clickCode."&trip_sub3=D1438110";
                 break;
 
+            case '0de4601976eba5cca506aef3456de07300c48b77':
+                // Trip.com - CPS (Private)
+                $rootUrl = $click->linkHistory->original_url;
+                $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                $clickCode = $click->code;
+                $url = $rootUrl.$sep."Allianceid=6582080&SID=221208436&trip_sub1=".$clickCode."&trip_sub3=D4029601";
+                break;
+
             case '661d8178a32585301900931955599b9de5fa0e4d':
                 // Banggood (Global)
                 $url = self::involveTracking($click, 'clmli4x');
