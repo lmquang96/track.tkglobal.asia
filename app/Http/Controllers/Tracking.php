@@ -116,7 +116,7 @@ class Tracking extends Controller
                 $url = self::involveTracking($click, 'clmpvs6');
                 break;
 
-            case '450829e35b03db8f1413a8ef60cc94a0d43dc1a8':
+            case 'e009b67ee3fc8e8031c85773ccf8a3f76854cff9':
                 // Traveloka VN - CPS
                 $url = self::involveTracking($click, 'clmrmxk');
                 break;
