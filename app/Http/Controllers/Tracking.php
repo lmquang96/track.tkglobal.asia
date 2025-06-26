@@ -121,6 +121,11 @@ class Tracking extends Controller
                 $url = self::involveTracking($click, 'clmrmz7');
                 break;
 
+            case '8ed200d447c25c1f08416bc6c899c33c19e9724e':
+                // Tripadvisor - CPS
+                $url = self::involveTracking($click, 'clmsa20');
+                break;
+
             case '8beb356031b37381d91200607e9f4b0af00fca6e':
                 // KKday Global - CPS
                 $rootUrl = $click->linkHistory->original_url;
