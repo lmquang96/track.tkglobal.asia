@@ -131,6 +131,11 @@ class Tracking extends Controller
                 $url = self::involveTracking($click, 'clmsa20');
                 break;
 
+            case '045f5826cd69e5aecbbb25f9f09a97ff8fb60100':
+                // Trip.com Network - CPS (private)
+                $url = self::involveTracking($click, 'clmwt84');
+                break;
+
             case '8beb356031b37381d91200607e9f4b0af00fca6e':
                 // KKday Global - CPS
                 $rootUrl = $click->linkHistory->original_url;
@@ -208,7 +213,7 @@ class Tracking extends Controller
                 // Zaimoo - VN
                 $url = self::goodaffTracking($click, 'zaimoo.vn');
                 break;
-            
+
             default:
                 # code...
                 break;
