@@ -78,6 +78,14 @@ class Tracking extends Controller
                     $url = $rootUrl.$sep."cid=21967&ud1=".$clickCode;
                     break;
 
+                case '557ed886394502e839b57b068422b64026ec11fd':
+                    // Viator - CPS
+                    $rootUrl = $click->linkHistory->original_url;
+                    $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                    $clickCode = $click->code;
+                    $url = $rootUrl.$sep."pid=P00277730&mcid=42383&medium=link&campaign=".$clickCode;
+                    break;
+
                 default:
                     # code...
                     break;
