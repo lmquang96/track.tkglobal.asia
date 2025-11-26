@@ -86,6 +86,14 @@ class Tracking extends Controller
                     $url = $rootUrl.$sep."pid=P00277730&mcid=42383&medium=link&campaign=".$clickCode;
                     break;
 
+                case 'a7a1e00c8a2bfb802d24345f285605bff60701cc':
+                    // GetYourGuide - CPS
+                    $rootUrl = $click->linkHistory->original_url;
+                    $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                    $clickCode = $click->code;
+                    $url = $rootUrl.$sep."partner_id=UX9ASYC&utm_medium=online_publisher&cmp=".$clickCode;
+                    break;
+
                 default:
                     # code...
                     break;
