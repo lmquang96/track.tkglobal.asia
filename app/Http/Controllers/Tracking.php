@@ -94,6 +94,13 @@ class Tracking extends Controller
                     $url = $rootUrl.$sep."partner_id=UX9ASYC&utm_medium=online_publisher&cmp=".$clickCode;
                     break;
 
+                case 'c89d690a6702eff441bf859bf032c7e3708e2acc':
+                    // StubHub CPA
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://stubhub.prf.hn/click/camref:1110lduwf/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
                 default:
                     # code...
                     break;
