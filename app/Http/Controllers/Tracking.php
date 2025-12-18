@@ -104,6 +104,7 @@ class Tracking extends Controller
                 case 'd1d08b6472e8e842da767b0ab6da9ac32f2e3529':
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
+                    $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
                     $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
                     break;
 
