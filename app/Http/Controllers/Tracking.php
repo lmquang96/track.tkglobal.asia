@@ -101,6 +101,12 @@ class Tracking extends Controller
                     $url = "https://stubhub.prf.hn/click/camref:1110lduwf/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
+                case 'd1d08b6472e8e842da767b0ab6da9ac32f2e3529':
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
+                    break;
+
                 default:
                     # code...
                     break;
