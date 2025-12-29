@@ -44,6 +44,9 @@ class Tracking extends Controller
             if ($setupRediect['platform'] == 'goodaff') {
                 $url = self::goodaffTracking($click, $setupRediect['platform_id']);
             }
+            if ($setupRediect['platform'] == 'travelpayouts') {
+                $url = self::travelpayoutsTracking($click, $setupRediect['platform_id']);
+            }
         } else {
             switch ($id) {
                 case 'b0d252949e6eb6887b96d2edf3c1c245bb7a8f66':
@@ -127,6 +130,12 @@ class Tracking extends Controller
     public function goodaffTracking($click, $id) {
         $clickCode = $click->code;
         $url = "https://affilink.eu/$id/ni80lej1id?s1=$clickCode";
+        return $url;
+    }
+
+    public function travelpayoutsTracking($click, $id) {
+        $clickCode = $click->code;
+        $url = "https://tp.media/r?marker=637824.$clickCode&trs=429275&p=8645&u=https%3A%2F%2Fexpedia.com&campaign_id=$id";
         return $url;
     }
 }
