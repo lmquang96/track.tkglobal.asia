@@ -36,6 +36,7 @@ class Tracking extends Controller
     public function redirectTracking($click) {
         $id = $click->linkHistory->campaign->code;
         $setupRediect = SetupRedirect::where('campaign_code', $id)->first();
+        $rootUrl = $click->linkHistory->original_url;
         $url = null;
         if ($setupRediect) {
             if ($setupRediect['platform'] == 'involve') {
@@ -45,7 +46,7 @@ class Tracking extends Controller
                 $url = self::goodaffTracking($click, $setupRediect['platform_id']);
             }
             if ($setupRediect['platform'] == 'travelpayouts') {
-                $url = self::travelpayoutsTracking($click, $setupRediect['platform_id']);
+                $url = self::travelpayoutsTracking($click, $setupRediect['platform_id'], $rootUrl);
             }
         } else {
             switch ($id) {
@@ -133,9 +134,10 @@ class Tracking extends Controller
         return $url;
     }
 
-    public function travelpayoutsTracking($click, $id) {
+    public function travelpayoutsTracking($click, $id, $rootUrl) {
         $clickCode = $click->code;
-        $url = "https://tp.media/r?marker=637824.$clickCode&trs=429275&p=8645&u=https%3A%2F%2Fexpedia.com&campaign_id=$id";
+        $targetUrl = urlencode($rootUrl);
+        $url = "https://tp.media/r?marker=637824.$clickCode&trs=429275&p=8645&u=$targetUrl&campaign_id=$id";
         return $url;
     }
 }
