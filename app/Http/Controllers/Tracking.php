@@ -105,6 +105,13 @@ class Tracking extends Controller
                     $url = "https://stubhub.prf.hn/click/camref:1110lduwf/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
+                case 'e3f8c3aae144a3350476d0360242fa3354f95425':
+                    // Viagogo CPA
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://viagogo.prf.hn/click/camref:1100l5pHoN/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
                 case 'd1d08b6472e8e842da767b0ab6da9ac32f2e3529':
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
