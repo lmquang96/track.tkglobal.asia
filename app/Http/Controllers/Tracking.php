@@ -34,6 +34,7 @@ class Tracking extends Controller
     }
 
     public function redirectTracking($click) {
+        dd('haha');
         $id = $click->linkHistory->campaign->code;
         $setupRediect = SetupRedirect::where('campaign_code', $id)->first();
         $rootUrl = $click->linkHistory->original_url;
