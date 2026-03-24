@@ -49,7 +49,6 @@ class Tracking extends Controller
                 $url = self::travelpayoutsTracking($click, $setupRediect['platform_id'], $rootUrl);
             }
         } else {
-            dd($id);
             switch ($id) {
                 case 'b0d252949e6eb6887b96d2edf3c1c245bb7a8f66':
                     // Trip.com - CPS
@@ -168,11 +167,10 @@ class Tracking extends Controller
                         default:
                             break;
                         }
+
+
+                        $url = "https://c.trackig.site/c/v3/$campaginId/?source=deeplink_generator&network_id=85&sub=$clickIdEndcode&url=" . urlencode($target);
                     break;
-
-                    $url = "https://c.trackig.site/c/v3/$campaginId/?source=deeplink_generator&network_id=85&sub=$clickIdEndcode&url=" . urlencode($target);
-
-                    dd($url);
 
                 default:
                     # code...
