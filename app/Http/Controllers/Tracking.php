@@ -49,7 +49,7 @@ class Tracking extends Controller
                 $url = self::travelpayoutsTracking($click, $setupRediect['platform_id'], $rootUrl);
             }
         } else {
-            dd('debug');
+            dd($id);
             switch ($id) {
                 case 'b0d252949e6eb6887b96d2edf3c1c245bb7a8f66':
                     // Trip.com - CPS
