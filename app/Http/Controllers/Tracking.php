@@ -171,6 +171,8 @@ class Tracking extends Controller
 
                     $url = "https://c.trackig.site/c/v3/$campaginId/?source=deeplink_generator&network_id=85&sub=$clickIdEndcode&url=" . urlencode($target);
 
+                    dd($url);
+
                 default:
                     # code...
                     break;
