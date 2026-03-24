@@ -119,6 +119,15 @@ class Tracking extends Controller
                     $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
                     break;
 
+                case 'be4b3d00e3339b7ff5ca9a503b1578cee2f5607a':
+                    // Sunworld
+                    $rootUrl = $click->linkHistory->original_url;
+                    dd($rootUrl);
+                    $clickCode = $click->code;
+                    $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                    $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
+                    break;
+
                 default:
                     # code...
                     break;
