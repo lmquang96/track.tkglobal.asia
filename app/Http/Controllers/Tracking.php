@@ -13,7 +13,6 @@ class Tracking extends Controller
 {
     public function index(string $code) {
         $linkHistory = LinkHistory::where('code', $code)->first();
-        dd($code, $linkHistory);
         if (!$linkHistory) {
             return response()->json(['status' => '404', 'message' => 'Not Found!'], 404, []);
         }
