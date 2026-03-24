@@ -34,7 +34,6 @@ class Tracking extends Controller
     }
 
     public function redirectTracking($click) {
-        dd('haha');
         $id = $click->linkHistory->campaign->code;
         $setupRediect = SetupRedirect::where('campaign_code', $id)->first();
         $rootUrl = $click->linkHistory->original_url;
@@ -50,6 +49,7 @@ class Tracking extends Controller
                 $url = self::travelpayoutsTracking($click, $setupRediect['platform_id'], $rootUrl);
             }
         } else {
+            dd('debug');
             switch ($id) {
                 case 'b0d252949e6eb6887b96d2edf3c1c245bb7a8f66':
                     // Trip.com - CPS
