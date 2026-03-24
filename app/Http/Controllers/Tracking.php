@@ -122,11 +122,54 @@ class Tracking extends Controller
                 case 'be4b3d00e3339b7ff5ca9a503b1578cee2f5607a':
                     // Sunworld
                     $rootUrl = $click->linkHistory->original_url;
-                    dd($rootUrl);
                     $clickCode = $click->code;
-                    $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
-                    $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
+                    // $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
+                    // $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
+                    $campaginId = $target = "";
+
+                    switch ($rootUrl) {
+                        // [Sun World Fansipan Legend - Vẻ đẹp đỉnh cao của Bắc bộ]
+                        case 'https://booking.sunworld.vn/vi/catalog?land=SunParadiseLandSaPa&park=FSS':
+                            $campaginId = 'CON000000889';
+                            $target = 'https://booking.sunworld.vn/';
+                            break;
+
+                        // [Sun World Ba Den Mountain - Nóc nhà Nam bộ]
+                        case 'https://booking.sunworld.vn/vi/catalog?land=SunParadiseLandTayNinh&park=SBD':
+                            $campaginId = 'CON000000888';
+                            $target = 'https://booking.sunworld.vn';
+                            break;
+
+                        // [Sun World Hòn Thơm - Thiên đường giải trí tại Phú Quốc]
+                        case 'https://booking.sunworld.vn/vi/catalog?land=SunParadiseLandPhuQuoc&park=HTI':
+                            $campaginId = 'CON000000890';
+                            $target = 'https://booking.sunworld.vn/';
+                            break;
+
+                        // [Lễ hội pháo hoa quốc tế Đà Nẵng 2026]
+                        case 'https://booking.sunworld.vn/en/catalog?land=SunParadiseLandDaNang&park=DIF':
+                            $campaginId = 'CON000000887';
+                            $target = 'https://booking.sunworld.vn/en/catalog?land=SunParadiseLandDaNang&park=DIF&date=2025-12-01&flexibleDate=1&adultQuantity=1&childQuantity=0&seniorQuantity=0';
+                            break;
+
+                        // [Sun World Ba Na Hills: Đường lên tiên cảnh]
+                        case 'https://booking.sunworld.vn/vi/catalog?land=SunParadiseLandDaNang&park=BNC':
+                            $campaginId = 'CON000000892';
+                            $target = 'https://booking.sunworld.vn/vi/catalog';
+                            break;
+
+                        // [Sunworld Vũng Tàu - Aqua Adventure]
+                        case 'https://booking.sunworld.vn/vi/catalog?land=SunParadiseLandVungTau&park=SWV':
+                            $campaginId = 'CON000000886';
+                            $target = 'https://booking.sunworld.vn/vi';
+                            break;
+
+                        default:
+                            break;
+                        }
                     break;
+
+                    $url = "https://c.trackig.site/c/v3/$campaginId/?source=deeplink_generator&network_id=85&sub=$clickIdEndcode&url=" . urlencode($target);
 
                 default:
                     # code...
