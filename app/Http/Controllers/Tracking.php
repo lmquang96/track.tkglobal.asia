@@ -48,6 +48,9 @@ class Tracking extends Controller
             if ($setupRediect['platform'] == 'travelpayouts') {
                 $url = self::travelpayoutsTracking($click, $setupRediect['platform_id'], $rootUrl);
             }
+            if ($setupRediect['platform'] == 'rakuten') {
+                $url = self::rakutenTracking($click, $setupRediect['platform_id'], $rootUrl);
+            }
         } else {
             switch ($id) {
                 case 'b0d252949e6eb6887b96d2edf3c1c245bb7a8f66':
@@ -198,6 +201,13 @@ class Tracking extends Controller
         $clickCode = $click->code;
         $targetUrl = urlencode($rootUrl);
         $url = "https://tp.media/r?marker=637824.$clickCode&trs=429275&p=8645&u=$targetUrl&campaign_id=$id";
+        return $url;
+    }
+
+    public function rakutenTracking($click, $id, $rootUrl) {
+        $clickCode = $click->code;
+        $targetUrl = urlencode($rootUrl);
+        $url = "https://click.linksynergy.com/deeplink?id=4NWxxzm0NaQ&mid=$id&murl=$targetUrl&u1=$clickCode";
         return $url;
     }
 }
