@@ -19,10 +19,7 @@ class Tracking extends Controller
         if (!$linkHistory) {
             return response()->json(['status' => '404', 'message' => 'Not Found!'], 404, []);
         }
-
-        if ($code == '7c9c4922b0dbe98fa0f7fcb709aa2f203d0b4078') {
-            dd(Cache::get("link_histories_code_{$code}"));
-        }
+        
         $newClick = new Click();
         $newClick->code = sha1(time());
         $newClick->agent = \Request::userAgent();
