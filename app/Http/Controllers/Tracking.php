@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Click;
 use App\Models\LinkHistory;
 use App\Models\SetupRedirect;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 
 class Tracking extends Controller
 {
     public function index(string $code) {
-        $linkHistory = LinkHistory::where('code', $code)->first();
+        $linkHistory = Cache::remember("link_histories_code_{$code}", now()->addMinutes(60), function() use ($code) {
+            return LinkHistory::where('code', $code)->first();
+        });
+
         if (!$linkHistory) {
             return response()->json(['status' => '404', 'message' => 'Not Found!'], 404, []);
+        }
+
+        if ($code == '7c9c4922b0dbe98fa0f7fcb709aa2f203d0b4078') {
+            dd(Cache::get("link_histories_code_{$code}"));
         }
         $newClick = new Click();
         $newClick->code = sha1(time());
