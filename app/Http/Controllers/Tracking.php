@@ -13,7 +13,7 @@ class Tracking extends Controller
 {
     public function index(string $code) {
         $linkHistory = Cache::remember("link_histories_code_{$code}", now()->addMinutes(60), function() use ($code) {
-            return LinkHistory::where('code', $code)->first();
+            return LinkHistory::where('code', $code)->orWhere('id', $code)->first();
         });
 
         if (!$linkHistory) {
