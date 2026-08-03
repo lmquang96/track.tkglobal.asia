@@ -126,6 +126,13 @@ class Tracking extends Controller
                     $url = $rootUrl.$sep."pcs=1&cid=1953935&tag=$clickCode";
                     break;
 
+                case '8e695f54b8441de63e8822c526ae5e580a4220bf':
+                    // Gamivo Global
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://gamivo.prf.hn/click/camref:1011l5IKsB/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
                 case 'be4b3d00e3339b7ff5ca9a503b1578cee2f5607a':
                     // Sunworld
                     $rootUrl = $click->linkHistory->original_url;
