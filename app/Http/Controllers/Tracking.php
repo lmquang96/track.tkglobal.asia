@@ -186,6 +186,13 @@ class Tracking extends Controller
                         $url = "https://c.trackig.site/c/v3/$campaginId/?source=deeplink_generator&network_id=85&sub=$clickCode&url=" . urlencode($target);
                     break;
 
+                case '4fc923758331e71120c17c02d40aba466348ed26':
+                    // IM8 Health CPS
+                    // $rootUrl = $click->linkHistory->original_url;
+                    // $clickCode = $click->code;
+                    $url = "https://www.im8health.com/TKGLOBAL10";
+                    break;
+
                 default:
                     # code...
                     break;
