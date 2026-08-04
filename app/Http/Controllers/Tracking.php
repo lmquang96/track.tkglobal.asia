@@ -16,6 +16,10 @@ class Tracking extends Controller
             return LinkHistory::where('code', $code)->orWhere('id', $code)->first();
         });
 
+        if ($code == '3b8b8b925c0dfb52ab29d48272ee64ab8fa3b96d') {
+            dd($linkHistory);
+        }
+
         if (!$linkHistory) {
             return response()->json(['status' => '404', 'message' => 'Not Found!'], 404, []);
         }
