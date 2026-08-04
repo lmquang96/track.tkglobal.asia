@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Cache;
 class Tracking extends Controller
 {
     public function index(string $code) {
-        if ($code == '3b8b8b925c0dfb52ab29d48272ee64ab8fa3b96d' || $code == '92d7381eb2d7ad38b40727c4560dbd02f2462fb2') {
-            Cache::forget("link_histories_code_{$code}");
-        }
         $linkHistory = Cache::remember("link_histories_code_{$code}", now()->addMinutes(60), function() use ($code) {
             return LinkHistory::where('code', $code)->first();
         });
