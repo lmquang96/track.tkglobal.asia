@@ -17,7 +17,11 @@ class Tracking extends Controller
         });
 
         if ($code == '3b8b8b925c0dfb52ab29d48272ee64ab8fa3b96d') {
-            dd(LinkHistory::where('code', $code)->orWhere('id', $code)->first());
+            dd(
+                LinkHistory::where('code', $code)->when(is_numeric($code), function($q, $code) {
+                    return $q->orWhere('id', $code);
+                })->toSql()
+            );
         }
 
         if (!$linkHistory) {
