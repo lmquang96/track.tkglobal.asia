@@ -13,16 +13,8 @@ class Tracking extends Controller
 {
     public function index(string $code) {
         $linkHistory = Cache::remember("link_histories_code_{$code}", now()->addMinutes(60), function() use ($code) {
-            return LinkHistory::where('code', $code)->orWhere('id', $code)->first();
+            return LinkHistory::where('code', $code)->first();
         });
-
-        if ($code == '3b8b8b925c0dfb52ab29d48272ee64ab8fa3b96d') {
-            dd(
-                LinkHistory::where('code', $code)->when(is_numeric($code), function($q, $code) {
-                    return $q->orWhere('id', $code);
-                })->toSql()
-            );
-        }
 
         if (!$linkHistory) {
             return response()->json(['status' => '404', 'message' => 'Not Found!'], 404, []);
