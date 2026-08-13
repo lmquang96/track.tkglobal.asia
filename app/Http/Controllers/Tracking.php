@@ -193,6 +193,13 @@ class Tracking extends Controller
                     $url = "https://www.im8health.com/TKGLOBAL10";
                     break;
 
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // viagogo UK
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://prf.hn/click/camref:1011l5uGRF/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
                 default:
                     # code...
                     break;
