@@ -200,63 +200,63 @@ class Tracking extends Controller
                     $url = "https://prf.hn/click/camref:1011l5uGRF/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case '806002fea017de4152cd2640eb6dc23d275eecf4':
                     // Ticombo - LATAM
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQs/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case '2934ae5da186469e6fa4193460760ba1000bc898':
                     // Ticombo - Mexico
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQu/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case 'b4c0c5b457f8ce0210aa1690c2c85595f79713fd':
                     // Ticombo APAC
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQg/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case '2292f233042e71ae2a4052a2855f6fa0a379f03d':
                     // Ticombo Europe
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQh/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case 'afa048dd2b20dcc90f7380a86fbcb1974a5cc9cc':
                     // Ticombo Germany
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQi/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case '417e10751f4290b9b91bb9e19c18f3ff2706706e':
                     // Ticombo Singapore
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQt/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case '69c92c91e4dee0e02eed78f8530b8854f28065ea':
                     // Ticombo Spain
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQr/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case 'c9f30827e04e04f75bb37c850ecf65aed4c73fa9':
                     // Ticombo UK
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQj/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
-                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                case '7f7faa639f6228482a27b518f5aaedfc5f05e7f8':
                     // Ticombo US
                     $rootUrl = $click->linkHistory->original_url;
                     $clickCode = $click->code;
