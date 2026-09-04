@@ -200,6 +200,69 @@ class Tracking extends Controller
                     $url = "https://prf.hn/click/camref:1011l5uGRF/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo - LATAM
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQs/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo - Mexico
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQu/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo APAC
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQg/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo Europe
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQh/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo Germany
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQi/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo Singapore
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQt/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo Spain
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQr/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo UK
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQj/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
+                case '848b8ae45b068ce2a072c2ed7d269996052c3497':
+                    // Ticombo US
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://ticombo.prf.hn/click/camref:1110lLxQf/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
+                    break;
+
                 default:
                     # code...
                     break;
