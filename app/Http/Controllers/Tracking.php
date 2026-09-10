@@ -263,6 +263,11 @@ class Tracking extends Controller
                     $url = "https://ticombo.prf.hn/click/camref:1110lLxQf/pubref:$clickCode/ar:$clickCode/[p_id:1011l599298]/destination:$rootUrl";
                     break;
 
+                case 'e43d4fb39fac0fc95ba6b99e54f89400ed556f1c':
+                    // TikTok Shop VN
+                    dd($clickCode);
+                    break;
+
                 default:
                     # code...
                     break;
