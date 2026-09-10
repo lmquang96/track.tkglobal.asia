@@ -265,7 +265,7 @@ class Tracking extends Controller
 
                 case 'e43d4fb39fac0fc95ba6b99e54f89400ed556f1c':
                     // TikTok Shop VN
-                    dd($clickCode);
+                    dd($click->code);
                     break;
 
                 default:
