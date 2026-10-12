@@ -268,6 +268,13 @@ class Tracking extends Controller
                     dd($click->code);
                     break;
 
+                case '5dd2f46fde33382a520f2851da6224c913e6e50c':
+                    // Shopee VN
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = "https://s.shopee.vn/an_redir?origin_link=$rootUrl&affiliate_id=17354160109&sub_id=$clickCode----";
+                    break;
+
                 default:
                     # code...
                     break;
