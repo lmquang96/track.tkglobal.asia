@@ -74,7 +74,7 @@ class TiktokService
         $link = data_get($response, 'data.sharing_links.{first}.sharing_link');
 
         $link = str_replace(
-          '%7B%22t%22%3A1%2C%22k%22%3A', '7B%22event_id%22%3A%22'.$clickId.'%22%2C%22t%22%3A1%2C%22k%22%3A', $link);
+          '%7B%22t%22%3A1%2C%22k%22%3A', '%7B%22event_id%22%3A%22'.$clickId.'%22%2C%22t%22%3A1%2C%22k%22%3A', $link);
 
         return $link;
       }
