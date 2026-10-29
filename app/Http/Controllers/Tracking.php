@@ -7,6 +7,7 @@ use App\Models\LinkHistory;
 use App\Models\SetupRedirect;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+use App\Services\Traffic\TiktokService;
 
 
 class Tracking extends Controller
@@ -29,7 +30,7 @@ class Tracking extends Controller
         try {
             $newClick->save();
 
-            self::redirectTracking($newClick);
+            self::redirectTracking($newClick, TiktokService $tiktokService);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
@@ -265,7 +266,7 @@ class Tracking extends Controller
 
                 case 'e43d4fb39fac0fc95ba6b99e54f89400ed556f1c':
                     // TikTok Shop VN
-                    dd($click->code);
+                    $url = $tiktokService->createLinkTiktok($click->code);
                     break;
 
                 case '5dd2f46fde33382a520f2851da6224c913e6e50c':
