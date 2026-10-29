@@ -12,6 +12,10 @@ use App\Services\Traffic\TiktokService;
 
 class Tracking extends Controller
 {
+    public function __construct(
+        protected TiktokService $tiktokService,
+    ) {}
+
     public function index(string $code) {
         $linkHistory = Cache::remember("link_histories_code_{$code}", now()->addMinutes(60), function() use ($code) {
             return LinkHistory::where('code', $code)->first();
@@ -30,7 +34,7 @@ class Tracking extends Controller
         try {
             $newClick->save();
 
-            self::redirectTracking($newClick, TiktokService $tiktokService);
+            self::redirectTracking($newClick);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
@@ -266,7 +270,7 @@ class Tracking extends Controller
 
                 case 'e43d4fb39fac0fc95ba6b99e54f89400ed556f1c':
                     // TikTok Shop VN
-                    $url = $tiktokService->createLinkTiktok($click->code);
+                    $url = $this->tiktokService->createLinkTiktok($click->code);
                     break;
 
                 case '5dd2f46fde33382a520f2851da6224c913e6e50c':
