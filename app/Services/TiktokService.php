@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Traffic;
+namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\LinkHistory;

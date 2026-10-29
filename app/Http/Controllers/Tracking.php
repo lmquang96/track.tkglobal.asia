@@ -7,7 +7,7 @@ use App\Models\LinkHistory;
 use App\Models\SetupRedirect;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use App\Services\Traffic\TiktokService;
+use App\Services\TiktokService;
 
 
 class Tracking extends Controller
