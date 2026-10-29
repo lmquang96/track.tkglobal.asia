@@ -270,7 +270,9 @@ class Tracking extends Controller
 
                 case 'e43d4fb39fac0fc95ba6b99e54f89400ed556f1c':
                     // TikTok Shop VN
-                    $url = $this->tiktokService->createLinkTiktok($click->code);
+                    $rootUrl = $click->linkHistory->original_url;
+                    $clickCode = $click->code;
+                    $url = $this->tiktokService->createLinkTiktok($clickCode, $rootUrl);
                     break;
 
                 case '5dd2f46fde33382a520f2851da6224c913e6e50c':

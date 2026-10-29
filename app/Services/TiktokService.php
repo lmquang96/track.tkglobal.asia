@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Http;
 
 class TiktokService
 {
-  public function createLinkTiktok(string $clickId)
+  public function createLinkTiktok(string $clickId, string $url)
   {
-    return $this->getLinkTiktok($clickId);
+    return $this->getLinkTiktok($clickId, $url);
   }
 
-  private function getLinkTiktok($clickId)
+  private function getLinkTiktok(string $clickId, string $url)
   {
     $accessToken = 'ROW_Nv2O5QAAAACY3gRglKiHdmPBGimNqqR1Qh1Me5ptOk-q_BCHM7asj9jHvfv76J79aBurL0Na-GFHyu0zlA4yxmi9X6lkMgp4Zm-pfk4X3PUpP1ei62VKMA';
 
@@ -32,10 +32,12 @@ class TiktokService
       'timestamp' => $timestamp,
     ];
 
+    $productId = $this->getProductCodeFromUrl($url);
+
     $body = json_encode([
       'material' => [
         'ids' => [
-          '1729749693232744449',
+          $productId,
         ],
         'type' => 'PRODUCT',
       ],
@@ -116,5 +118,15 @@ class TiktokService
       'sign' => $sign,
       'sign_string' => $signString,
     ];
+  }
+
+  private function getProductCodeFromUrl(string $url) {
+    $path = parse_url($url, PHP_URL_PATH);
+
+    $segments = explode('/', trim($path, '/'));
+
+    $productId = end($segments);
+
+    return $productId;
   }
 }
