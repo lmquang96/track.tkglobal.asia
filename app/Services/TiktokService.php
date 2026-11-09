@@ -6,9 +6,26 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\LinkHistory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class TiktokService
 {
+  protected string $appKey;
+  protected string $appSecret;
+  protected string $refreshTokenEndpoint;
+  protected string $searchProductPath;
+  protected string $generateLinkPath;
+
+  public function __construct()
+  {
+    $this->appKey = config('tracking.tiktok.app_key');
+    $this->appSecret = config('tracking.tiktok.app_secret');
+    $this->refreshTokenEndpoint = config('tracking.tiktok.refresh_token_endpoint');
+    $this->searchProductPath = config('tracking.tiktok.search_product_path');
+    $this->generateLinkPath = config('tracking.tiktok.generate_link_path');
+  }
+
   public function createLinkTiktok(string $clickId, string $url)
   {
     return $this->getLinkTiktok($clickId, $url);
@@ -16,74 +33,75 @@ class TiktokService
 
   private function getLinkTiktok(string $clickId, string $url)
   {
-    $accessToken = 'ROW_Nv2O5QAAAACY3gRglKiHdmPBGimNqqR1Qh1Me5ptOk-q_BCHM7asj9jHvfv76J79aBurL0Na-GFHyu0zlA4yxmi9X6lkMgp4Zm-pfk4X3PUpP1ei62VKMA';
+    $cacheKey = md5($url);
+    $link = Cache::remember($cacheKey, now()->addDay(), function () use ($clickId, $url) {
+      $accessToken = $this->getAccessToken();
+      $appKey      = $this->appKey;
+      $appSecret   = $this->appSecret;
+      $path        = $this->generateLinkPath;
 
-    $refreshToken = 'ROW_y3dljwAAAACMR4Z2gLlrZYIz86VFtx8GmXXerX0eP91ns4WjpRe87ZgRUGspKCRzEBCHF0PIyvTX-j9QBBPQ2IXBZvKqjRnS';
+      $timestamp = (string) time();
 
-    $appKey    = '6locfdh94v0q2';
-    $appSecret = '21e11117be3a4f566285388741ffd2e11c2dcaf3';
-    $path   = '/affiliate_creator/202505/affiliate_sharing_links/general_publishers/generate_batch';
-
-
-    $timestamp = (string) time();
-
-    $query = [
-      'app_key' => $appKey,
-      'timestamp' => $timestamp,
-    ];
-
-    $productId = $this->getProductCodeFromUrl($url);
-
-    $body = json_encode([
-      'material' => [
-        'ids' => [
-          $productId,
-        ],
-        'type' => 'PRODUCT',
-      ],
-    ], JSON_UNESCAPED_SLASHES);
-
-    $result = $this->generateTikTokSign(
-      $appSecret,
-      $path,
-      $query,
-      $body
-    );
-
-    $sign = $result['sign'];
-
-    $url = 'https://open-api.tiktokglobalshop.com'
-      . $path
-      . '?'
-      . http_build_query([
+      $query = [
         'app_key' => $appKey,
         'timestamp' => $timestamp,
-        'sign' => $sign,
-      ]);
+      ];
 
-    try {
-      $response = Http::withHeaders([
-        'Content-Type' => 'application/json',
-        'x-tts-access-token' => $accessToken,
-      ])->withBody(
-        $body,
-        'application/json'
-      )->post($url);
+      $productId = $this->getProductCodeFromUrl($url);
 
-      $response = $response->json();
+      $body = json_encode([
+        'material' => [
+          'ids' => [
+            $productId,
+          ],
+          'type' => 'PRODUCT',
+        ],
+      ], JSON_UNESCAPED_SLASHES);
 
-      if ($response['code'] == 0) {
-        $link = data_get($response, 'data.sharing_links.{first}.sharing_link');
+      $result = $this->generateTikTokSign(
+        $appSecret,
+        $path,
+        $query,
+        $body
+      );
 
-        $link = str_replace(
-          '%7B%22t%22%3A1%2C%22k%22%3A', '%7B%22event_id%22%3A%22'.$clickId.'%22%2C%22t%22%3A1%2C%22k%22%3A', $link);
+      $sign = $result['sign'];
 
-        return $link;
+      $url = 'https://open-api.tiktokglobalshop.com'
+        . $path
+        . '?'
+        . http_build_query([
+          'app_key' => $appKey,
+          'timestamp' => $timestamp,
+          'sign' => $sign,
+        ]);
+
+      try {
+        $response = Http::withHeaders([
+          'Content-Type' => 'application/json',
+          'x-tts-access-token' => $accessToken,
+        ])->withBody(
+          $body,
+          'application/json'
+        )->post($url);
+
+        $response = $response->json();
+
+        if ($response['code'] == 0) {
+          $link = data_get($response, 'data.sharing_links.{first}.sharing_link');
+
+          return $link;
+        }
+      } catch (\Throwable $th) {
+        Log::error('Lỗi xảy ra khi tạo link tiktok: ' . $th->getMessage());
+        return null;
       }
-    } catch (\Throwable $th) {
-      Log::error('Lỗi xảy ra khi tạo link tiktok: ' . $th->getMessage());
-      return null;
-    }
+    });
+
+    $link = str_replace(
+      '%7B%22t%22%3A1%2C%22k%22%3A', '%7B%22event_id%22%3A%22'.$clickId.'%22%2C%22t%22%3A1%2C%22k%22%3A', $link);
+
+      return $link;
   }
 
   function generateTikTokSign(
@@ -127,6 +145,124 @@ class TiktokService
 
     $productId = end($segments);
 
+    if (strlen($productId) < 18 || !is_numeric($productId)) {
+      $response = Http::get($url);
+
+      $finalUrl = $response->effectiveUri();
+
+      if ($finalUrl) {
+        $path = $finalUrl->getPath();
+
+        $segments = explode('/', trim($path, '/'));
+
+        $productId = end($segments);
+      }
+    }
+
+    if (strlen($productId) < 18 && !is_numeric($productId)) {
+      $baseProductIdStore = Cache::remember("base_product_id_store", now()->addMinutes(1440), function() {
+        return $this->getRandomProduct();
+      });
+
+      $baseProductIdStore = $this->getRandomProduct();
+
+      $productId = $baseProductIdStore[array_rand($baseProductIdStore)];
+    }
+
     return $productId;
+  }
+
+  private function getRandomProduct() {
+    $accessToken = $this->getAccessToken();
+    $appKey    = $this->appKey;
+    $appSecret = $this->appSecret;
+    $path   = $this->searchProductPath;
+
+    $timestamp = (string) time();
+
+    $query = [
+      'app_key' => $appKey,
+      'timestamp' => $timestamp,
+      'page_size' => 20
+    ];
+
+    $body = json_encode([], JSON_UNESCAPED_SLASHES);
+
+    $result = $this->generateTikTokSign(
+      $appSecret,
+      $path,
+      $query,
+      $body
+    );
+
+    $sign = $result['sign'];
+
+    $url = 'https://open-api.tiktokglobalshop.com'
+      . $path
+      . '?'
+      . http_build_query([
+        'app_key' => $appKey,
+        'timestamp' => $timestamp,
+        'sign' => $sign,
+        'page_size' => 20
+      ]);
+
+    try {
+      $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+        'x-tts-access-token' => $accessToken,
+      ])->withBody(
+        $body,
+        'application/json'
+      )->post($url);
+
+      $response = $response->json();
+
+      if ($response['code'] == 0) {
+        $products = data_get($response, 'data.products', []);
+        $baseProductIdStore = [];
+
+        foreach ($products as $product) {
+          $baseProductIdStore[] = $product['id'];
+        }
+
+        return $baseProductIdStore;
+      }
+    } catch (\Throwable $th) {
+      Log::error('Lỗi xảy ra khi lấy sản phẩm tiktok: ' . $th->getMessage());
+      return null;
+    }
+  }
+
+  private function getAccessToken() {
+    $endpoint = $this->refreshTokenEndpoint;
+    $accessToken = Cache::get('tiktok_access_token');
+
+    if (!$accessToken) {
+      $refreshToken = Cache::get('tiktok_refresh_token');
+
+      try {
+        $response = Http::get($endpoint, [
+          'app_key' => $this->appKey,
+          'refresh_token' => $refreshToken,
+          'grant_type' => 'refresh_token'
+        ]);
+
+        $response = $response->json();
+
+        $accessToken = data_get($response, 'data.access_token');
+        $accessTokenExpire = data_get($response, 'data.access_token_expire_in');
+        $refreshToken = data_get($response, 'data.refresh_token');
+        $refreshTokenExpire = data_get($response, 'data.refresh_token_expire_in');
+
+        Cache::put('tiktok_refresh_token', $refreshToken, Carbon::createFromTimestamp((int) $refreshTokenExpire));
+
+        Cache::put('tiktok_access_token', $accessToken, Carbon::createFromTimestamp((int) $accessTokenExpire));
+      } catch (\Throwable $th) {
+        Log::error('Lỗi xảy ra khi lấy access token tiktok: ' . $th->getMessage());
+      }
+    }
+
+    return $accessToken;
   }
 }

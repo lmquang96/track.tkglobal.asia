@@ -21,6 +21,8 @@ class Tracking extends Controller
             return LinkHistory::where('code', $code)->first();
         });
 
+        // http://localhost:8000/t/02c126c6d4b708e64fe4529190871df14d539a44
+
         if (!$linkHistory) {
             return response()->json(['status' => '404', 'message' => 'Not Found!'], 404, []);
         }
