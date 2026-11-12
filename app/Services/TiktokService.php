@@ -164,8 +164,6 @@ class TiktokService
         return $this->getRandomProduct();
       });
 
-      $baseProductIdStore = $this->getRandomProduct();
-
       $productId = $baseProductIdStore[array_rand($baseProductIdStore)];
     }
 
@@ -206,7 +204,9 @@ class TiktokService
         'app_key' => $appKey,
         'timestamp' => $timestamp,
         'sign' => $sign,
-        'page_size' => 20
+        'page_size' => 20,
+        'sort_field' => 'units_sold',
+        'sort_order' => 'DESC'
       ]);
 
     try {
@@ -232,7 +232,7 @@ class TiktokService
       }
     } catch (\Throwable $th) {
       Log::error('Lỗi xảy ra khi lấy sản phẩm tiktok: ' . $th->getMessage());
-      return null;
+      return [];
     }
   }
 
