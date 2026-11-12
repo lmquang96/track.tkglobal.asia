@@ -183,7 +183,9 @@ class TiktokService
     $query = [
       'app_key' => $appKey,
       'timestamp' => $timestamp,
-      'page_size' => 20
+      'page_size' => 20,
+      'sort_field' => 'units_sold',
+      'sort_order' => 'DESC'
     ];
 
     $body = json_encode([], JSON_UNESCAPED_SLASHES);
