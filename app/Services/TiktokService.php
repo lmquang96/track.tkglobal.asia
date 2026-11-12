@@ -34,7 +34,8 @@ class TiktokService
   private function getLinkTiktok(string $clickId, string $url)
   {
     $cacheKey = md5($url);
-    $link = Cache::remember($cacheKey, now()->addDay(), function () use ($clickId, $url) {
+    $productId = $this->getProductCodeFromUrl($url);
+    $link = Cache::remember($cacheKey.$productId, now()->addDay(), function () use ($clickId, $url, $productId) {
       $accessToken = $this->getAccessToken();
       $appKey      = $this->appKey;
       $appSecret   = $this->appSecret;
@@ -46,8 +47,6 @@ class TiktokService
         'app_key' => $appKey,
         'timestamp' => $timestamp,
       ];
-
-      $productId = $this->getProductCodeFromUrl($url);
 
       $body = json_encode([
         'material' => [
