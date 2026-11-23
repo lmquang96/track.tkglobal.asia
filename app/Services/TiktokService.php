@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use App\Models\Config;
+use League\Flysystem\Config as FlysystemConfig;
+use PSpell\Config as PSpellConfig;
 
 class TiktokService
 {
@@ -161,8 +164,6 @@ class TiktokService
         return $this->getRandomProduct();
       });
 
-      dd($baseProductIdStore);
-
       $productId = $baseProductIdStore[array_rand($baseProductIdStore)];
     }
 
@@ -242,25 +243,33 @@ class TiktokService
     if (!$accessToken) {
       $refreshToken = Cache::get('tiktok_refresh_token');
 
-      try {
-        $response = Http::get($endpoint, [
-          'app_key' => $this->appKey,
-          'refresh_token' => $refreshToken,
-          'grant_type' => 'refresh_token'
-        ]);
+      if (!$refreshToken) {
+        $refreshToken = Config::where('name', 'tiktok_refresh_token')->pluck('value')->first();
+      }
 
-        $response = $response->json();
+      if ($refreshToken) {
+        try {
+          $response = Http::get($endpoint, [
+            'app_key' => $this->appKey,
+            'refresh_token' => $refreshToken,
+            'grant_type' => 'refresh_token'
+          ]);
 
-        $accessToken = data_get($response, 'data.access_token');
-        $accessTokenExpire = data_get($response, 'data.access_token_expire_in');
-        $refreshToken = data_get($response, 'data.refresh_token');
-        $refreshTokenExpire = data_get($response, 'data.refresh_token_expire_in');
+          $response = $response->json();
 
-        Cache::put('tiktok_refresh_token', $refreshToken, Carbon::createFromTimestamp((int) $refreshTokenExpire));
+          $accessToken = data_get($response, 'data.access_token');
+          $accessTokenExpire = data_get($response, 'data.access_token_expire_in');
+          $refreshToken = data_get($response, 'data.refresh_token');
+          $refreshTokenExpire = data_get($response, 'data.refresh_token_expire_in');
 
-        Cache::put('tiktok_access_token', $accessToken, Carbon::createFromTimestamp((int) $accessTokenExpire));
-      } catch (\Throwable $th) {
-        Log::error('Lỗi xảy ra khi lấy access token tiktok: ' . $th->getMessage());
+          Cache::put('tiktok_refresh_token', $refreshToken, Carbon::createFromTimestamp((int) $refreshTokenExpire));
+
+          Cache::put('tiktok_access_token', $accessToken, Carbon::createFromTimestamp((int) $accessTokenExpire));
+        } catch (\Throwable $th) {
+          Log::error('Lỗi xảy ra khi lấy access token tiktok: ' . $th->getMessage());
+        }
+      } else {
+        $this->callApiToken();
       }
     }
 
