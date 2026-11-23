@@ -8,3 +8,4 @@ use App\Http\Controllers\Tracking;
 // });
 
 Route::get('/t/{code}', [Tracking::class, 'index'])->name('tracking');
+Route::get('/d', [Tracking::class, 'deeplink'])->name('deeplink');

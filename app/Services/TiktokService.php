@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Auth;
-use App\Models\LinkHistory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
@@ -162,6 +160,8 @@ class TiktokService
       $baseProductIdStore = Cache::remember("base_product_id_store", now()->addMinutes(1440), function() {
         return $this->getRandomProduct();
       });
+
+      dd($baseProductIdStore);
 
       $productId = $baseProductIdStore[array_rand($baseProductIdStore)];
     }

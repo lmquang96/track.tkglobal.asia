@@ -8,6 +8,10 @@ use App\Models\SetupRedirect;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use App\Services\TiktokService;
+use Illuminate\Http\Request;
+use App\Models\Campaign;
+use App\Services\LinkService;
+use App\Models\Profile;
 
 
 class Tracking extends Controller
@@ -15,6 +19,62 @@ class Tracking extends Controller
     public function __construct(
         protected TiktokService $tiktokService,
     ) {}
+
+    public function deeplink(Request $request, LinkService $linkService) {
+        $oid = data_get($request->all(), 'oid', null);
+        $aid = data_get($request->all(), 'aid', null);
+        $url = data_get($request->all(), 'url', null);
+        $sub1 = data_get($request->all(), 'sub1', null);
+        $sub2 = data_get($request->all(), 'sub2', null);
+        $sub3 = data_get($request->all(), 'sub3', null);
+        $sub4 = data_get($request->all(), 'sub4', null);
+
+        if (!$oid || !$aid) {
+            return response()->json(['status' => '404', 'message' => 'Link not support!'], 404, []);
+        }
+
+        $campaign = Campaign::where('id', $oid)->first();
+        
+        if (!$campaign) {
+            return response()->json(['status' => '404', 'message' => 'Campaign not found!'], 404, []);
+        }
+
+        $user = Profile::where('affiliate_id', $aid)->first();
+
+        if (!$user) {
+            return response()->json(['status' => '404', 'message' => 'user not found!'], 404, []);
+        }
+
+        if (!$url) {
+            $url = $campaign->url;
+        }
+
+        $storeHistory = $linkService->storeHistory($oid, $user->user_id, $url, $sub1, $sub2, $sub3, $sub4);
+
+        if (!$storeHistory['status']) {
+            return response()->json(['status' => '500', 'message' => 'server error!'], 500, []);
+        }
+
+        $newClick = new Click();
+        $newClick->code = sha1(time());
+        $newClick->agent = \Request::userAgent();
+        $newClick->ip = \Request::ip();
+        $newClick->link_history_id = $storeHistory["id"];
+
+        try {
+            $newClick->save();
+
+            self::redirectTracking($newClick);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+
+            return response()->json(['status' => '500', 'error', $e->getMessage()], 200, []);
+        }
+
+        // dd($storeHistory);
+
+        // dd($oid, $aid, $url, $sub1, $sub2, $sub3, $sub4);
+    }
 
     public function index(string $code) {
         $linkHistory = Cache::remember("link_histories_code_{$code}", now()->addMinutes(60), function() use ($code) {
@@ -44,7 +104,7 @@ class Tracking extends Controller
         }
     }
 
-    public function redirectTracking($click) {
+    private function redirectTracking($click) {
         $id = $click->linkHistory->campaign->code;
         $setupRediect = SetupRedirect::where('campaign_code', $id)->first();
         $rootUrl = $click->linkHistory->original_url;
