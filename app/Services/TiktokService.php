@@ -264,6 +264,10 @@ class TiktokService
 
           Cache::put('tiktok_refresh_token', $refreshToken, Carbon::createFromTimestamp((int) $refreshTokenExpire));
 
+          Config::where('name', 'tiktok_refresh_token')->update([
+            'value' => $refreshToken
+          ]);
+
           Cache::put('tiktok_access_token', $accessToken, Carbon::createFromTimestamp((int) $accessTokenExpire));
         } catch (\Throwable $th) {
           Log::error('Lỗi xảy ra khi lấy access token tiktok: ' . $th->getMessage());
