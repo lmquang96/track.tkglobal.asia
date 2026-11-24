@@ -56,7 +56,7 @@ class Tracking extends Controller
         }
 
         $newClick = new Click();
-        $newClick->code = sha1(time());
+        $newClick->code = bin2hex(random_bytes(20));
         $newClick->agent = \Request::userAgent();
         $newClick->ip = \Request::ip();
         $newClick->link_history_id = $storeHistory["id"];
@@ -88,7 +88,7 @@ class Tracking extends Controller
         }
         
         $newClick = new Click();
-        $newClick->code = sha1(time());
+        $newClick->code = bin2hex(random_bytes(20));
         $newClick->agent = \Request::userAgent();
         $newClick->ip = \Request::ip();
         $newClick->link_history_id = $linkHistory->id;

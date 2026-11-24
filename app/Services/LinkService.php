@@ -31,7 +31,7 @@ class LinkService
 
     $linkHistory = new LinkHistory;
 
-    $linkHistory->code = sha1(time());
+    $linkHistory->code = bin2hex(random_bytes(20));
     $linkHistory->original_url = $url;
     $linkHistory->domain = 'track.tkglobal.asia';
     $linkHistory->short_url = null;
