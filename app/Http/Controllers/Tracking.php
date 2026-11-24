@@ -45,7 +45,7 @@ class Tracking extends Controller
             return response()->json(['status' => '404', 'message' => 'user not found!'], 404, []);
         }
 
-        if (!$url) {
+        if (!$url || $url == '{target_url_encode}') {
             $url = $campaign->url;
         }
 
