@@ -127,6 +127,9 @@ class Tracking extends Controller
                 case 'b0d252949e6eb6887b96d2edf3c1c245bb7a8f66':
                     // Trip.com - CPS
                     $rootUrl = $click->linkHistory->original_url;
+                    if ($rootUrl == '{target_url_encode}') {
+                        $rootUrl = $click->linkHistory->campaign->url;
+                    }
                     $sep = stripos($rootUrl, "?") !== false ? "&" : "?";
                     $clickCode = $click->code;
                     $url = $rootUrl.$sep."Allianceid=5997657&SID=168084274&trip_sub1=".$clickCode."&trip_sub3=D1438110";
@@ -333,6 +336,9 @@ class Tracking extends Controller
                 case 'e43d4fb39fac0fc95ba6b99e54f89400ed556f1c':
                     // TikTok Shop VN
                     $rootUrl = $click->linkHistory->original_url;
+                    if ($rootUrl == '{target_url_encode}') {
+                        $rootUrl = $click->linkHistory->campaign->url;
+                    }
                     $clickCode = $click->code;
                     $url = $this->tiktokService->createLinkTiktok($clickCode, $rootUrl);
                     break;
